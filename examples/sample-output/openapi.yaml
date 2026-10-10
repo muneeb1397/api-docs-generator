@@ -1,1 +1,99 @@
 
+openapi: 3.0.3
+info:
+  title: Generated API
+  version: 1.0.0
+paths:
+  /products:
+    get:
+      summary: List products
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by product category
+        - name: minPrice
+          in: query
+          required: false
+          schema:
+            type: number
+          description: Filter by minimum product price
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: number
+          description: Filter by page number
+      responses:
+        "200":
+          description: Products listing
+  /users:
+    get:
+      summary: List all users
+      responses:
+        "200":
+          description: List of users
+    post:
+      summary: Create user
+      responses:
+        "200":
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+  /users/{id}:
+    get:
+      summary: Get user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: id parameter
+      responses:
+        "200":
+          description: User object
+        "404":
+          description: User not found
+    put:
+      summary: Update user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: id parameter
+      responses:
+        "200":
+          description: Updated user
+        "400":
+          description: Bad request
+        "404":
+          description: Not found
+    delete:
+      summary: Delete user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: id parameter
+      responses:
+        "204":
+          description: User deleted
+        "400":
+          description: Bad request
+        "404":
+          description: Not found
