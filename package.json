@@ -1,0 +1,25 @@
+{
+  "name": "api-docs-generator",
+  "version": "1.0.0",
+  "description": "CLI that scans Express routes and generates OpenAPI docs via LLM",
+  "main": "index.js",
+  "bin": {
+    "api-docs-generator": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "validate": "swagger-cli validate docs/openapi.yaml"
+  },
+  "keywords": ["openapi", "express", "docs", "llm"],
+  "author": "Muhammad Muneeb Ur Rehman",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "js-yaml": "^4.1.0",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@apidevtools/swagger-cli": "^4.0.4"
+  }
+}
