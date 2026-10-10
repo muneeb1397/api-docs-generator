@@ -29,7 +29,7 @@ Writing and maintaining API documentation is tedious and often falls out of sync
 | **Developer** | SDAIA (Saudi Data & AI Authority) |
 | **API provider** | Groq (cloud, OpenAI-compatible chat completions) |
 | **Temperature** | 0 (deterministic) |
-| **Weights / licence** | Open weights published by SDAIA on Hugging Face (`ALLaM-AI/ALLaM-7B-Instruct-preview`); licence terms are in that repository's LICENSE file (verify before reuse). Groq serves it as `allam-2-7b`. |
+| **Weights / licence** | Open weights published by SDAIA on Hugging Face ([ALLaM-7B-Instruct-preview](https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview)); licence: Apache 2.0 (declared in the model card). Groq serves it as `allam-2-7b`. |
 | **Alternative** | Ollama with `qwen2.5-coder:7b` — swappable via env vars, untested |
 
 **Role in the tool:** The LLM is the core of the pipeline. It receives raw Express route source code and infers structured OpenAPI operation descriptors (method, path, summary, parameters, request body, responses) as a JSON array. The tool then sanitises, merges, and writes the output. Without the LLM, there is no documentation — it is not a cosmetic add-on.
