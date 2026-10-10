@@ -8,6 +8,7 @@ const path = require('path');
 const { scanRoutes } = require('./src/scanner');
 const { extractRoutes } = require('./src/parser');
 const { buildOpenApi, writeOutputs } = require('./src/generator');
+const { serve } = require('./src/serve');
 
 const args = process.argv.slice(2);
 
@@ -39,14 +40,14 @@ function applyMountPrefix(relPath, routes) {
   const routesDir = args[0];
   const outIdx = args.indexOf('--out');
   const outDir = outIdx !== -1 ? args[outIdx + 1] : 'docs';
-  const serve = args.includes('--serve');
+  const shouldServe = args.includes('--serve');
 
   if (!routesDir || routesDir.startsWith('--')) printUsage();
   if (outIdx !== -1 && !outDir) printUsage();
 
   console.log('Routes dir :', routesDir);
   console.log('Output dir :', outDir);
-  console.log('Serve UI   :', serve);
+  console.log('Serve UI   :', shouldServe);
   console.log();
 
   // --- scan route files ---
@@ -86,4 +87,9 @@ function applyMountPrefix(relPath, routes) {
   console.log(`\nWritten ${endpointCount} endpoint(s):`);
   console.log(`  • ${yamlPath}`);
   console.log(`  • ${mdPath}`);
+
+  // --- optionally serve Swagger UI ---
+  if (shouldServe) {
+    serve(outDir);
+  }
 })();

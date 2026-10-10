@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "validate": "swagger-cli validate docs/openapi.yaml"
+    "validate": "swagger-cli validate docs/openapi.yaml",
+    "test": "node index.js ./examples/sample-api/routes --out ./docs && swagger-cli validate docs/openapi.yaml && node test/check.js"
   },
   "keywords": ["openapi", "express", "docs", "llm"],
   "author": "Muhammad Muneeb Ur Rehman",
