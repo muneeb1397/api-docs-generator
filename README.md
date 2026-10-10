@@ -17,7 +17,7 @@ Writing and maintaining API documentation is tedious and often falls out of sync
 - **Swagger UI** — optional `--serve` flag launches an interactive API explorer at `/docs`
 - **Sanitisation** — post-processes LLM output to fix common issues (Express `:id` → OpenAPI `{id}`, missing path params, malformed request bodies)
 - **Mount prefix inference** — derives route prefixes from filenames (`users.js` → `/users`)
-- **Rate-limit retry** — handles HTTP 429 with exponential back-off (up to 3 retries)
+- **Rate-limit retry** — on HTTP 429 waits for the `retry-after` header (default 5s) and retries up to 3 times
 
 ## AI Component
 
@@ -29,6 +29,7 @@ Writing and maintaining API documentation is tedious and often falls out of sync
 | **Developer** | SDAIA (Saudi Data & AI Authority) |
 | **API provider** | Groq (cloud, OpenAI-compatible chat completions) |
 | **Temperature** | 0 (deterministic) |
+| **Weights / licence** | Open weights published by SDAIA on Hugging Face (`ALLaM-AI/ALLaM-7B-Instruct-preview`); licence terms are in that repository's LICENSE file (verify before reuse). Groq serves it as `allam-2-7b`. |
 | **Alternative** | Ollama with `qwen2.5-coder:7b` — swappable via env vars, untested |
 
 **Role in the tool:** The LLM is the core of the pipeline. It receives raw Express route source code and infers structured OpenAPI operation descriptors (method, path, summary, parameters, request body, responses) as a JSON array. The tool then sanitises, merges, and writes the output. Without the LLM, there is no documentation — it is not a cosmetic add-on.
@@ -107,7 +108,7 @@ sequenceDiagram
 ### Installation
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/muneeb1397/api-docs-generator.git
 cd api-docs-generator
 npm install
 ```
@@ -120,8 +121,10 @@ Copy `.env.example` to `.env` and fill in your values:
 |----------|-------------|---------|
 | `GROQ_API_KEY` | Your Groq API key | *(required for Groq)* |
 | `PROVIDER` | `groq` or `ollama` | `groq` |
-| `MODEL` | Model ID to use | `llama-3.1-8b-instant` |
+| `MODEL` | Model ID to use | `allam-2-7b` |
 | `OLLAMA_URL` | Ollama server URL | `http://localhost:11434` |
+
+> The `docs/` output folder is gitignored. Run the tool (below) to generate it.
 
 ### Run
 

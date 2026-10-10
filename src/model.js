@@ -4,7 +4,7 @@
 require('dotenv').config();
 
 const PROVIDER = process.env.PROVIDER || 'groq';
-const MODEL = process.env.MODEL || 'llama-3.1-8b-instant';
+const MODEL = process.env.MODEL || 'allam-2-7b';
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
 
